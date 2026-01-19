@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from "react";
+import "./App.css";
+
+function CounterBad() {
+  let count = 0;
+  console.log("Counter value:", count);
+  return (
+    <button className="counter" onClick={() => count++}>
+      Click
+    </button>
+  );
+}
+
+function CounterGood() {
+  let [count, setCount] = useState(0);
+  useEffect(() => {
+    console.log("Counter value:", count);
+  }, [count]);
+
+  return <button onClick={() => setCount(count++)}>Click</button>;
+}
+
+function App() {
+  return (
+    <div className="container">
+      <CounterBad />
+      <CounterGood />
+    </div>
+  );
+}
+
+export default App;
