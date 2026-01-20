@@ -1,0 +1,41 @@
+
+import { useEffect, useState } from "react";
+
+function ExampleComponent() {
+  const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
+
+  // useEffect for data fetching
+  useEffect(() => {
+    fetch("https://dummyjson.com/posts")
+      .then((response) => response.json())
+      .then((results) => setData(results.posts));
+  }, []);
+
+  // useEffect for simple event listener
+  useEffect(() => {
+    function handleClick() {
+      console.log("User clicked the window");
+    }
+
+    window.addEventListener("click", handleClick);
+
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  // useEffect for updating document title
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count]);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <p>Items count: {data.length}</p>
+    </div>
+  );
+}
+
+export default ExampleComponent;
