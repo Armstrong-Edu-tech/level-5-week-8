@@ -1,0 +1,41 @@
+import React, { useMemo, useState } from "react";
+import "./App.css";
+
+
+function TaskList({tasks,filter}){
+    const filteredTasks = useMemo(() => {
+        
+        console.log("Filtering tasks...");
+        return tasks.filter((task)=>task.status===filter);
+    },[tasks,filter]);
+
+    return (
+        <ul>
+            {filteredTasks.map((task) => (
+                <li key={task.id}>{task.text}</li>
+            ))}
+        </ul>
+    )
+}
+
+function App() {
+    const [filter, setFilter] = useState("completed");
+    const tasks = [
+        { id: 1, text: "Task 1", status: "completed" },
+        { id: 2, text: "Task 2", status: "pending" },
+        { id: 3, text: "Task 3", status: "completed" },
+        { id: 4, text: "Task 4", status: "pending" },
+    ];
+
+    return(
+        <div>
+            <button onClick={()=>setFilter('completed')}>Completed</button>
+            <button onClick={()=>setFilter('pending')}>Pending</button>
+            <TaskList tasks={tasks} filter={filter} />
+        </div>
+    )
+}
+
+
+
+export default App;
