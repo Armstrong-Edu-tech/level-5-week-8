@@ -1,0 +1,30 @@
+import React from 'react';
+import useFormValidation from '../useFetch';
+import '.././App.css'
+const initialValues = { email: '', password: '' };
+function validate(values) {
+  const errors = {};
+  if (!values.email) errors.email = 'Email is required';
+  if (!values.password) errors.password = 'Password is required';
+  return errors;
+}
+
+function LoginForm() {
+  function submit(values) {
+    alert('Login Success: ' + JSON.stringify(values));
+  }
+
+  const { values, errors, handleChange, handleSubmit } = useFormValidation(initialValues, validate, submit);
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <input name="email" value={values.email} onChange={handleChange} placeholder="Email" />
+      {errors.email && <p>{errors.email}</p>}
+      <input name="password" type="password" value={values.password} onChange={handleChange} placeholder="Password" />
+      {errors.password && <p>{errors.password}</p>}
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+
+export default LoginForm;
