@@ -1,0 +1,62 @@
+import React from 'react';
+import useFormValidation from '../useFetch';
+import '.././App.css'
+
+const initialValues = { username: "", age: "", password: "" };
+
+function validate(values) {
+  const errors = {};
+  if (!values.username) errors.username = "Username is required";
+  if (!values.age) errors.age = "Age is required";
+  else if (isNaN(values.age) || Number(values.age) <= 0)
+    errors.age = "Age must be a positive number";
+  if (!values.password) errors.password = "Password is required";
+  else if (values.password.length < 6)
+    errors.password = "Password must be at least 6 characters";
+  return errors;
+}
+
+function SignupForm() {
+  function submit(values) {
+    alert("Signup Successful: " + JSON.stringify(values));
+  }
+
+  const { values, errors, handleChange, handleSubmit } = useFormValidation(
+    initialValues,
+    validate,
+    submit
+  );
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <input
+        name="username"
+        value={values.username}
+        onChange={handleChange}
+        placeholder="Username"
+      />
+      {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
+
+      <input
+        name="age"
+        value={values.age}
+        onChange={handleChange}
+        placeholder="Age"
+      />
+      {errors.age && <p style={{ color: "red" }}>{errors.age}</p>}
+
+      <input
+        name="password"
+        type="password"
+        value={values.password}
+        onChange={handleChange}
+        placeholder="Password"
+      />
+      {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+
+      <button type="submit">Sign Up</button>
+    </form>
+  );
+}
+
+export default SignupForm;
