@@ -1,0 +1,39 @@
+import React, { useState, useMemo, useCallback } from "react";
+
+const items = Array.from({ length: 1000 }, (_, i) => `Item ${i + 1}`);
+
+function SearchList() {
+  const [search, setSearch] = useState("");
+
+  console.log("Component rendered");
+
+  const handleSearch = useCallback((e) => {
+    setSearch(e.target.value);
+  }, []);
+
+  const filteredItems = useMemo(() => {
+    console.log("Filtering...");
+    return items.filter((item) =>
+      item.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={search}
+        onChange={handleSearch}
+      />
+
+      <ul>
+        {filteredItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default SearchList;
