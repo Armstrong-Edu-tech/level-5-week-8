@@ -1,0 +1,23 @@
+import { useState } from "react";
+
+function useCityValidation() {
+  const [error, setError] = useState("");
+
+  const validateCity = (city) => {
+    if (!city.trim()) {
+      setError("City name cannot be empty");
+      return false;
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(city)) {
+      setError("City name must contain letters only");
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
+
+  return { error, validateCity };
+}
+export default useCityValidation;
