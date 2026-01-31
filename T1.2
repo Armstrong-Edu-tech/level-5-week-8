@@ -1,0 +1,17 @@
+import { useEffect } from "react";
+
+function Timer() {
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log("Timer running...");
+    }, 1000);
+
+    // ✅ cleanup function
+    return () => {
+      clearInterval(id);
+      console.log("Timer stopped");
+    };
+  }, []);
+
+  return <h2>Timer Component</h2>;
+}
