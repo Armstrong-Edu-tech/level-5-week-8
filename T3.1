@@ -10,4 +10,30 @@ function AutoFocusInput() {
   return <input ref={inputRef} />;
 }
 
+function Example() {
+  const countRef = useRef(0);
+  const [renderCount, setRenderCount] = useState(0);
+
+  const handleClick = () => {
+    countRef.current += 1;   // value changes
+    console.log(countRef.current);
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>
+        Update ref value
+      </button>
+
+      <button onClick={() => setRenderCount(renderCount + 1)}>
+        Re-render
+      </button>
+    </div>
+  );
+}
+
+
+
+
+
 export default AutoFocusInput;
